@@ -55,26 +55,50 @@ h3 {
     max-width: var(--maxwidth);
     background-color: var(--white);
     margin: 0 auto;
+    position: relative;
 }
 
 header {
     padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/*Faste stukturer: grid, dynamiske strukturer: flex*/
+#cart-button {
+    width: 70px;
+    background: transparent;
+    border: none;
+    position: relative;
+
+    div {
+        background: var(--red);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -15px;
+        left: -12px;
+    }
+}
 
 nav {
     background: var(--red);
     color: var(--white);
 
-    a{
+    a {
         display: inline-block;
         padding: 1rem;
         text-transform: uppercase;
-        color: var(--black);
+        color: var(--white);
         text-decoration: none;
+        
 
-        &:hover{
+        &:hover {
             background: var(--yellow);
             color: var(--black);
             box-shadow: inset 0 -5px 0 var(--black);
@@ -83,13 +107,15 @@ nav {
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
 
-    justify-content: space-evenly;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    gap: 1rem;
+    #product-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        gap: 1rem;
+    }
 
     h2 {
         width: 100%;
@@ -115,7 +141,7 @@ main {
             margin: 0;
             text-transform: uppercase;
         }
-
+        
         p {
             margin: 0;
             margin-bottom: 5px;
@@ -124,7 +150,7 @@ main {
         button {
             background: var(--green);
             color: var(--white);
-            font-family: "Rubik", "sans-serif";
+            font-family: "Rubik", sans-serif;
             font-size: 1rem;
             padding: 0.5rem 1rem;
         }
@@ -134,3 +160,23 @@ main {
         }
     }
 }
+
+  #cart {
+        width: 550px;
+        background: var(--black);
+        border-left: 0.5rem solid var(--green);
+        border-bottom: 0.5rem solid var(--green);
+        padding: 1rem;
+        position: absolute;
+        top: 74px;
+        right: 0;
+
+        &.hidden{
+            visibility: hidden;
+        }
+
+        table {
+            width: 100%;
+            color: var(--white);
+        }
+    }
