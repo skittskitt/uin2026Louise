@@ -4,7 +4,7 @@ import './style/layout.scss'
 import Todos from './components/Todos'
 import AddToDo from './components/AddToDo'
 import { useState } from 'react'
-/*Se etter om import for componentet blir lagt til.*/
+/*Se etter om import før componentet blir lagt til.*/
 
 function App() {
 
