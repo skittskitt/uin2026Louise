@@ -1,8 +1,11 @@
 import "../style/form.scss"
 export default function AddToDo({todo, setTodo, setTodoList}){
 
+    // Funksjon som kjøres hver gang brukeren skriver i input eller textarea
     const handleChange = (e)=>{
         const {name, value} = e.target
+
+        // Oppdaterer todo-state
         setTodo((prev) => ({...prev, [name]: value}))
 
         console.log({[name]: value})
