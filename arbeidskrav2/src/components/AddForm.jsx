@@ -1,39 +1,26 @@
-export default function AddForm(updateText) {
+export default function AddForm(checkPrev, setShoppinglist, shoppingitem) {
 
-    //Funksjon som oppdateres hver gang man skriver i feltene.
-    /*const textState = (e) => {
-        const {item, value} = e.target
+    const updateText = (e) => {
+        const {name, value} = e.target
+
+        checkPrev((prev) => ({...prev, [name]: value}))
     }
-    updateText((prev) =>({...prev, [item]:value}))*/
+
+    const updateClick = (e) => {
+        e.preventDefault()
+        const uniqId = crypto.randomUUID()
+        setShoppinglist((prev) => ([...prev, {id:uniqId,...shoppingitem}]))
+    }
 
     return (
-        <form className="varer">
-                <label htmlFor="vareNavn">Vare</label>
-                <input type="text" id="vareNavn" name="vare" placeholder="Egg..." />
-
-                <label htmlFor="antallVare">Antall</label>
-                <input type="number" min="1" id="antallVare" name="antall" />
-
-                <button>Legg til vare</button>
+        <form onSubmit={updateClick}>
+            <label htmlFor="vare">Vare</label>
+            <input name="varenavn" type="text" id="vare" placeholder="Egg..." onChange={updateText}></input>
+            
+            <label htmlFor="antall">Antall</label>
+            <input type="number" id="antall" name="antallvare" min="1" onChange={updateText} />
+            <button>Legg til vare</button>
         </form>
     )
-
-    /*
-    <section className="main-layout">
-            <form className="antallVarer">
-                <input type="checkbox" id="melk" name="melk"/>
-                <label htmlFor="melk">Melk</label>
-
-                <label htmlFor="antall"></label>
-                <input type="number" min="1" id="antall" name="antall"></input>
-
-                <input type="checkbox" id="egg" name="egg"/>
-                <label htmlFor="egg">Egg</label>
-
-                <label htmlFor="antall"></label>
-                <input type="number" min="1" id="antall" name="antall"></input>
-            </form>
-
-        </section>
-    */
+    
 }

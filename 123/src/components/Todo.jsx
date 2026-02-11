@@ -1,4 +1,4 @@
-export default function ShoppingItem(title) {
+export default function Todo({title}){
 
     return (
         <form className="list-item">
