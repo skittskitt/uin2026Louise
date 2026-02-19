@@ -23,6 +23,7 @@ function App() {
   const [listItem, updateState] = useState();
 
   console.log(listItem, "from app")
+  console.log("Shoppingitems:", shoppingItems)
 
   return (
     <>

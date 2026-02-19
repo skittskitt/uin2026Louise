@@ -3,13 +3,15 @@ import '../assets/style/layout.scss'
 export default function AddForm({listItem, updateState, updateList}){
 
     const handleChange = (e)=>{
-        const {item, number} = e.target.value
-        updateState((prev) => ({...prev, [item]: number}))
-        console.log(listItem)
+        const {name, value} = e.target
+
+        updateState((prev) => ({...prev, [name]: value}))
+        console.log("List Item:", listItem)
     }
 
     const handleClick = (e)=> {
         e.preventDefault()
+
         const uniqId = crypto.randomUUID()
         updateList((prev) => ([...prev, {id:uniqId,...listItem}]))
         
@@ -18,7 +20,7 @@ export default function AddForm({listItem, updateState, updateList}){
     return(
         <form className="input-layout" onSubmit={handleClick}>
             <label htmlFor="vare">Vare</label>
-            <input name="varenavn" type="text" id="vare" placeholder="Egg..." onChange={handleChange}></input>
+            <input name="vare" type="text" id="vare" placeholder="Egg..." onChange={handleChange}></input>
             
             <label htmlFor="antall">Antall</label>
             <input type="number" id="antall" name="antallvare" min="1" onChange={handleChange} />
