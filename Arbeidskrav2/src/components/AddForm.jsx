@@ -12,18 +12,25 @@ export default function AddForm({listItem, updateState, updateList}){
     const handleClick = (e)=> {
         e.preventDefault()
 
-        const uniqId = crypto.randomUUID()
-        updateList((prev) => ([...prev, {id:uniqId,...listItem}]))
-        
+    
+
+        let inputValue = document.forms["submitForm"]["item","number"].value;
+        if (inputValue === "") {
+            alert("Begge felt må være fylt ut med riktige verdier.");
+            return null;
+        }else{
+                const uniqId = crypto.randomUUID()
+        updateList((prev) => ([{id:uniqId, ...listItem}, ...prev]))
+        }
     }
 
     return(
-        <form className="input-layout" onSubmit={handleClick}>
+        <form name="submitForm" className="input-layout" onSubmit={handleClick}>
             <label htmlFor="vare">Vare</label>
-            <input name="vare" type="text" id="vare" placeholder="Egg..." onChange={handleChange}></input>
+            <input name="item" type="text" id="vare" placeholder="Egg..." onChange={handleChange}></input>
             
             <label htmlFor="antall">Antall</label>
-            <input type="number" id="antall" name="antallvare" min="1" onChange={handleChange} />
+            <input type="number" id="antall" name="number" min="1" onChange={handleChange} />
             <button onClick={handleClick}>Legg til vare</button>
         </form>
     )

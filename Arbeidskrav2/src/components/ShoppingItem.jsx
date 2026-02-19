@@ -4,7 +4,7 @@ import '../assets/style/layout.scss'
 export default function ShoppingItem({shoppingItems, updateList}) {
     return(
         <section className="return-input">
-            {shoppingItems.map((item) => <ShoppingList key={item.id} title={item.item} itemValue={item.number} updateList={updateList} />)}
+            {shoppingItems.map((item) => <ShoppingList key={item.id} title={item.item} itemValue={item.number} checked={item.checked} updateList={updateList} />)}
         </section>
     )
 }

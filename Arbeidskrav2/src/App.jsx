@@ -9,13 +9,15 @@ function App() {
   const shoppingItems = [
     {
       id: 0,
-      item:"egg",
-      number: 1
+      item:"melk",
+      number: 2,
+      checked: false
     },
     {
       id: 1,
-      item:"melk",
-      number: 2
+      item:"egg",
+      number: 1,
+      checked: true
     },
   ]
 
