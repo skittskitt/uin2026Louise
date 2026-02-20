@@ -13,8 +13,9 @@ export default function AddForm({listItem, updateState, updateList}){
         e.preventDefault()
 
     
-
+//If-else test for å gi feilmelding ved ikke-fylte felt.
         let inputValue = document.forms["submitForm"]["item","number"].value;
+        
         if (inputValue === "") {
             alert("Begge felt må være fylt ut med riktige verdier.");
             return null;
@@ -24,6 +25,7 @@ export default function AddForm({listItem, updateState, updateList}){
         }
     }
 
+//Inputfeltet som skal ta i mot verdier og sende dem videre
     return(
         <form name="submitForm" className="input-layout" onSubmit={handleClick}>
             <label htmlFor="vare">Vare</label>

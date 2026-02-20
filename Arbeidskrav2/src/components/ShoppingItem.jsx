@@ -1,6 +1,7 @@
 import ShoppingList from "./ShoppingList";
 import '../assets/style/layout.scss'
 
+//Varene blir filtrert ut
 export default function ShoppingItem({shoppingItems, updateList}) {
     return(
         <section className="return-input">
