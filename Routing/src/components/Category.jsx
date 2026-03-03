@@ -1,32 +1,41 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useOutletContext, useParams } from 'react-router-dom'
 
-export default function Category() {
-
+export default function Category(){
+    const {apiEndpoint, defaultApiUrl} = useOutletContext()
     const [apiData, setApiData] = useState([])
-    const {slug} = useParams()
+
+    const spritesImg = apiData?.sprites
+    ? Object.keys(apiData.sprites)
+    : [];
+
+    const { slug } = useParams()
+
+    console.log("Denne kommer fra Category", apiEndpoint)
 
     const getSingleData = async()=>{
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${slug}`)
+        const response = await fetch(apiEndpoint ? apiEndpoint : defaultApiUrl+slug+"/"+cat)
         const data = await response.json()
         setApiData(data)
     }
 
-    console.log(apiData)
-
     useEffect(()=>{
         getSingleData()
-    },[slug])
+    },[cat, apiEndpoint])
 
     return (
         <main>
-            <h1>{apiData?.name}</h1>
-            
-            <section>
+             <h1>{apiData?.name}</h1>
+             <section>
                 <h2>Bilder</h2>
-                <img src={apiData?.spites?.front_default} alt={apiData?.name} />
-            </section>
+                {spritesImg?.map((item) => (
+                    apiData?.sprites?.[item] ?
+                        <img key={item} src={apiData?.sprites?.[item]} alt={apiData?.name} />
+                        : null
+                ))}
+             </section>
         </main>
+       
     )
-    
 }
