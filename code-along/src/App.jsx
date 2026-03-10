@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Route, Routes} from 'react-router-dom'
+
 import Home from './pages/Home'
 import Characters from './pages/Characters'
 import Character from './pages/Character'
