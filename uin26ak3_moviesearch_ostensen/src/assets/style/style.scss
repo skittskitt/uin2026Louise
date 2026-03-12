@@ -1,0 +1,14 @@
+.input-layout{
+    display: flex;
+    gap: 1rem;
+
+    label{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    input{
+        padding: 1rem;
+    }
+}

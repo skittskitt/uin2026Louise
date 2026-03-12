@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Movies() {
+export default function Preview() {
     const [movies, setMovies] = useState([])
 
     const getMovies = async ()=> {
