@@ -1,6 +1,7 @@
 import '../assets/style/style.scss'
 import { useEffect, useState } from "react"
 import History from "../components/History"
+import Preview from "../components/Preview"
 
 export default function Home() {
     const [search, setSearch] = useState()
@@ -51,6 +52,9 @@ export default function Home() {
                 {focused ? <History history={history} setSearch={setSearch} /> : null }
                 <button onClick={getMovies}>Søk</button>
             </form>
+            <section>
+                <Preview></Preview>
+            </section>
         </main>
         </>
     )

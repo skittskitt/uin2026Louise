@@ -1,10 +1,11 @@
 import { useState } from "react"
+import { Movie } from "../components/Movie"
 
 export default function Preview() {
     const [movies, setMovies] = useState([])
 
     const getMovies = async ()=> {
-        const response = await fetch('')
+        const response = await fetch(`http://www.omdbapi.com/?s=${search}`)
         const data = await response.json()
         setMovies(data.results)
     }
@@ -14,11 +15,7 @@ export default function Preview() {
     },[])
 
     return(
-        <aside>
-            <h2>Filmer:</h2>
-            <section>
-                {/* {movies?.map((movie) => <Movie key={movie.id} {movie.movie} />)} */}
-            </section>
-        </aside>
+        <h2>Filmer:</h2>
+        /* {movies?.map((movie) => <Movie key={movie.id} movie={movie} />)} */
     )
 }
