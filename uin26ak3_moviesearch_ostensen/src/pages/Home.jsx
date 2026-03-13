@@ -49,10 +49,11 @@ export default function Home() {
                 Søk etter film
                     <input type="search" placeholder="Princess Mononoke" onChange={handleChange} onFocus={()=> setFocused(true)}></input>
                 </label>
-                {focused ? <History history={history} setSearch={setSearch} /> : null }
+                {focused ? <History history={history} setSearch={setSearch} /> : null}
                 <button onClick={getMovies}>Søk</button>
             </form>
             <section>
+                <h2>Filmer:</h2>
                 <Preview></Preview>
             </section>
         </main>
