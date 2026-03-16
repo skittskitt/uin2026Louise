@@ -1,6 +1,7 @@
 .input-layout{
     display: flex;
     gap: 1rem;
+    justify-content: center;
 
     label{
         display: flex;
@@ -10,5 +11,18 @@
 
     input{
         padding: 1rem;
+    }
+}
+
+.preview-section{
+    display: flex;
+    flex-wrap: wrap;
+
+    h2 {
+        width: 200%;
+    }
+
+    article{
+        padding: 0.5rem;
     }
 }
