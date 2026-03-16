@@ -3,58 +3,77 @@ import { useEffect, useState } from "react"
 import History from "../components/History"
 import Preview from "../components/Preview"
 
+    /*Anngående "Søket skal ikke trigges før brukeren har skrevet minimum tre tegn" fra arbeidskravet.
+    I utgangspunktet hadde jeg en søke-knapp, men når jeg leste over setningn i ettertid
+    innså jeg at det kunne bli toklet slik at søket oppdaterer seg for hvert symbol, og kjører søket etter
+    minst tre symbol, i stedet for at søke-knappen skulle kunne gjøres klikkbart.
+    Jeg bestemte meg for å gå for den første tolkningen og fjernet søkeknappen min.  */
+
 export default function Home() {
-    const [search, setSearch] = useState()
-    const storedHistory = localStorage.getItem("search")
+    const [search, setSearch] = useState("")
+    const [movies, setMovies] = useState([])
     const [focused, setFocused] = useState(false) 
 
+    const storedHistory = localStorage.getItem("search")
     const [history, setHistory] = useState(storedHistory ? JSON.parse(storedHistory) : [])
-    console.log("Storage:", storedHistory) //Viser riktig.
 
-    //API url og nøkkel.
-    const apiUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
+    console.log("Storage:", storedHistory) //Viser det den skal
+
+    //API-nøkkel.
     const apiKey = import.meta.env.VITE_OMDB_API_KEY
 
+    //UseEffect som skal kjøre med en gang siden lastes inn, også forteller den til å søke James Bond.
     useEffect(()=>
-        { localStorage.setItem("search", JSON.stringify(history))},[history])
-    
-    const getMovies = async()=>{
-        try
-        {
-            const response = await fetch(`${apiUrl}${apiKey}`)
+        { localStorage.setItem("search", JSON.stringify(history))}, [history])
+
+        const getMovies = async (search)=> {    
+            if (!search) return
+
+            const response = await fetch(`https://www.omdbapi.com/?s=${search}&apikey=${apiKey}`)
             const data = await response.json()
+
+        //Skjekker om APIet fant filmen.
+        /*Kode jeg fikk ved hjelp av copilot: https://copilot.microsoft.com/chats/csfy9GEnoN27249MShedP */
+            if (data.Search) {
+                setMovies(data.Search) //Lagre film i state
+            } else {
+                setMovies([]) //Lagre tom liste
+            }
         }
-        catch(err){ console.error(err);}
-    }
 
-    //Henter verdien fra søket.
+    //James Bond filmer vil vises ved oppstart.
+    useEffect(() => {
+        getMovies("james bond")
+    }, [])
+
+    //Henter verdien fra søketfeltet.
     const handleChange = (e)=>{
-        setSearch(e.target.value)
-    }
+        const value = e.target.value
+        setSearch(value)
 
-    //Lagrer verdiene i history
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        e.target.reset()
-
-        setHistory((prev) => [...prev, search])
+        //Skjekker om minst tre tegn er skrevet inn.
+        if(value.length >= 3){
+            getMovies(value)
+        } else {
+            setMovies([])
+        }
     }
 
     return (
-        <> {/*Kan jeg flytte handleChange fra onChange til en funksjon som endres etter 3 tegn er skrevet inn?*/}
+        <>
         <main>
             <h1>Forside</h1>
-            <form className="input-layout" onSubmit={handleSubmit}>
-                <label>
-                Søk etter film
+            <form className="input-layout">
+                <label> Søk etter film
                     <input type="search" placeholder="Princess Mononoke" onChange={handleChange} onFocus={()=> setFocused(true)}></input>
                 </label>
+
                 {focused ? <History history={history} setSearch={setSearch} /> : null}
-                <button onClick={getMovies}>Søk</button>
             </form>
-            <section>
+
+            <section className="preview-section">
                 <h2>Filmer:</h2>
-                <Preview></Preview>
+                <Preview movies={movies}></Preview>
             </section>
         </main>
         </>
